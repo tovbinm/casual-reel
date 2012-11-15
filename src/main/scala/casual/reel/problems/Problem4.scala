@@ -15,17 +15,16 @@ class Problem4(digits: Int) {
         case _ => reverse(n / 10, 10 * r + (n % 10))
       }
 
-    def isPalindromic(n : Int) = n == reverse(n)
-
     val min = math.pow(10, digits - 1).toInt
     val max = 10 * min - 1
 
     (for {
       i <- max to min by -1
       j <- max to i by -1
-      if isPalindromic(i * j)
+      n = i * j
+      if n == reverse(n)
     }
-    yield i * j).max
+    yield n).max
 
   }
 
