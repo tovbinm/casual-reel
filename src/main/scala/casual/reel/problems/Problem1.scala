@@ -8,8 +8,8 @@ package casual.reel.problems
   Find the sum of all the multiples of 3 or 5 below 1000.
  */
 
-class Problem1(val max: Int) {
+class Problem1(max: Int) {
 
-  def solve = { 0 until max } filter { i => i % 3 == 0 || i % 5 == 0 } sum
+  def solve = { 0 until max }.filter{ i => i % 3 == 0 || i % 5 == 0 }.sum
 
 }

@@ -7,8 +7,7 @@ package casual.reel.problems
  */
 class Problem4(digits: Int) {
 
-  def solve: Int = {
-
+  def solve = {
     def reverse(n: Int, r: Int = 0): Int =
       n match {
         case 0 => r
@@ -25,7 +24,6 @@ class Problem4(digits: Int) {
       if n == reverse(n)
     }
     yield n).max
-
   }
 
 }

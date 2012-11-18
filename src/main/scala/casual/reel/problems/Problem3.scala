@@ -6,11 +6,11 @@ package casual.reel.problems
   What is the largest prime factor of the number 600851475143 ?
  */
 
-class Problem3(val n: Long) {
+class Problem3(n: Long) {
 
-  def solve: Long = {
+  def solve = {
     def solve0(n: Long): Long = {
-      val div = Stream from(2) filter { n % _ == 0 } head
+      val div = Stream.from(2).filter{ n % _ == 0 }.head
 
       if (div == n) n
       else solve0(n / div)

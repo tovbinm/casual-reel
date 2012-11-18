@@ -1,3 +1,5 @@
+package casual.reel.tests
+
 import casual.reel.problems.Problem4
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
