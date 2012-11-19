@@ -29,8 +29,8 @@ class Problem8(num: String) {
 
   def mul(n: String) = n.foldLeft(1){(a,c) => a * (c - '0')}
 
-  def nums = (for { i <- 0 to num.length - 5 }
-              yield num.substring(i, i + 5))
+  def nums = for { i <- 0 to num.length - 5 }
+             yield num.substring(i, i + 5)
 
   def solve = nums.map(mul).max
 
