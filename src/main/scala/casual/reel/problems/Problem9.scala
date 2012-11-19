@@ -14,7 +14,7 @@ class Problem9(num: Int) {
 
   def solve =
     (for {
-      c <- Stream.from(0)
+      c <- Stream.range(0, num)
       sC = c * c
       b <- Stream.range(0, c)
       sB = b * b
