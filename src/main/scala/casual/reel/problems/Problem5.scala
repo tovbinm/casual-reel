@@ -15,8 +15,9 @@ class Problem5(max: Int) {
 
   lazy val primes =
     (2 to max)
-        .foldLeft(List[Int]()){
-            (acc: List[Int], i: Int) => if (acc.exists(i % _ == 0)) acc else i :: acc
+        .foldLeft(List[Int]()){(acc, i) =>
+          if (acc.exists(i % _ == 0)) acc
+          else i :: acc
         }.reverse
 
   def solve =
