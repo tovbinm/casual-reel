@@ -1,5 +1,7 @@
 package casual.reel.problems
 
+import casual.reel.Numerics
+
 /*
   Problem 5:
   2520 is the smallest number that can be divided by each
@@ -8,20 +10,13 @@ package casual.reel.problems
   What is the smallest positive number that is evenly
   divisible by all of the numbers from 1 to 20?
  */
-class Problem5(max: Int) {
+class Problem5(max: Int) extends Numerics {
 
   lazy val smax = math.sqrt(max)
   lazy val lmax = math.log(max)
 
-  lazy val primes =
-    (2 to max)
-        .foldLeft(List[Int]()){(acc, i) =>
-          if (acc.exists(i % _ == 0)) acc
-          else i :: acc
-        }.reverse
-
   def solve =
-    primes.foldLeft(1L){(n, p) =>
+    primesBelow(max).foldLeft(1L){(n, p) =>
       if (p > smax) n * p
       else
         n * math.pow(p , math.floor( lmax / math.log(p) )).toLong

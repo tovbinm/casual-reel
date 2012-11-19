@@ -1,5 +1,7 @@
 package casual.reel.problems
 
+import casual.reel.Numerics
+
 
 /*
   Problem 7:
@@ -9,11 +11,7 @@ package casual.reel.problems
   What is the 10 001st prime number?
   */
 
-class Problem7(max: Int) {
-
-  def isPrime(n: Int) = Stream.range(2, math.sqrt(n).toInt + 1).forall(n % _ != 0)
-
-  lazy val primes = 2 #:: Stream.from(3, 2).filter(isPrime)
+class Problem7(max: Int) extends Numerics {
 
   def solve = primes.drop(max - 1).head
 

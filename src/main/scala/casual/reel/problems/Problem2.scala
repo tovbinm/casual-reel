@@ -1,5 +1,6 @@
 package casual.reel.problems
 
+import casual.reel.Numerics
 
 /*
   Problem 2:
@@ -9,12 +10,8 @@ package casual.reel.problems
   find the sum of the even-valued terms.
  */
 
-class Problem2(max: Int) {
+class Problem2(max: Int) extends Numerics {
 
-  def solve = {
-    def fib (n: Int, m: Int): Stream[Int] = n #:: fib ( m, n + m )
-
-    fib(1, 2).takeWhile{ _ < max }.filter{ _ % 2 == 0 }.sum
-  }
+  def solve = fib(1, 2).takeWhile{ _ < max }.filter{ _ % 2 == 0 }.sum
 
 }
