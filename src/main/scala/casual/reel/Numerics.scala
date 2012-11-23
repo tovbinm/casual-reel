@@ -14,7 +14,7 @@ trait Numerics {
   lazy val primesBelow = (end: Int) => {
     val numbers = Array.fill(end + 1)(true)
     for {
-      n <- 2 to math.sqrt(end).toInt + 1
+      n <- 2 to math.sqrt(end).toInt
       if numbers(n)
       m <- (n * n) to end by n
     } numbers(m) = false
