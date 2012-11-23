@@ -14,12 +14,10 @@ class Problem9(num: Int) {
 
   def solve =
     (for {
-      c <- Stream.range(0, num)
-      sC = c * c
-      b <- Stream.range(0, c)
-      sB = b * b
-      a <- Stream.range(0, b)
-      if a * a + sB == sC && a + b + c == num
+      a <- Stream.range(3, ((num - 3) / 3) + 1)
+      b <- Stream.range(a + 1, (num - a - 1) / 2)
+      c = num - a - b
+      if a * a + b * b == c * c
     } yield a * b * c).head
 
 }
