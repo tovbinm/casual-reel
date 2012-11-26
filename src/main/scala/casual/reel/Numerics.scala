@@ -11,17 +11,16 @@ trait Numerics {
   lazy val primes = 2 #:: Stream.from(3, 2).filter(isPrime)
 
   /* Sieve of Eratosthenes */
-  lazy val primesBelow = (end: Int) => {
-    val numbers = Array.fill(end + 1)(true)
+  lazy val primesBelow = (num: Int) => {
+    val bound = (num) / 2
+    val numbers = Array.fill(bound + 1)(true)
     for {
-      n <- 2 to math.sqrt(end).toInt
+      n <- 1 to math.sqrt(num).toInt / 2
       if numbers(n)
-      m <- (n * n) to end by n
+      m <- 2 * n * (n + 1) to bound by 2 * n + 1
     } numbers(m) = false
-    for {
-      n <- 2 to end
-      if numbers(n)
-    } yield n
+
+    2 :: (1 until bound).filter(numbers).map(2 * _ + 1).toList
   }
 
 }
