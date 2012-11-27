@@ -35,49 +35,32 @@ package casual.reel.problems
  */
 
 case class Position(x: Int, y: Int)
-case class Product(from: Position, deltaX: Int, deltaY: Int)
+case class Product(from: Position, dirX: Int, dirY: Int) {
+  def toPosition(delta: Int) =
+    Position(from.x + dirX * delta, from.y + dirY * delta)
+}
 
 class Grid(rowz: List[String], productLen: Int) {
   lazy val rows = rowz.map(_.split(' ').map(_.toInt))
   lazy val delta = productLen - 1
 
-  def possibleProducts(p: Position): List[Product] =
-    List(
-      Product(p, delta, 0),
-      Product(p, delta, delta),
-      Product(p,-delta, 0),
-      Product(p,-delta, -delta),
-      Product(p, 0, delta),
-      Product(p, 0, -delta),
-      Product(p, delta, -delta),
-      Product(p, -delta, delta))
+  def allPossibleProducts(p: Position) = List(
+      Product(p, 1, 0), Product(p, 1, 1),
+      Product(p,-1, 0), Product(p,-1, -1),
+      Product(p, 0, 1), Product(p, 0, -1),
+      Product(p, 1, -1),Product(p, -1, 1))
 
-  def isValidPosition(p: Position) =
+  def isValid(p: Position) =
     p.x >= 0 && p.x < rows.length && p.y >= 0 && p.y < rows.length
 
-  def isValidProduct(p: Product) =
-    isValidPosition(p.from) &&
-    isValidPosition(Position(p.from.x + p.deltaX, p.from.y + p.deltaY))
+  def isValid(p: Product): Boolean = isValid(p.from) && isValid(p.toPosition(delta))
 
-  def validProducts(p: Position): List[Product] =
-    possibleProducts(p).filter(isValidProduct)
+  def validProducts(p: Position) = allPossibleProducts(p).filter(isValid)
 
-  def productValue(p: Product) = ((p.deltaX, p.deltaY) match {
-      case (_,0) | (0,_) => {
-        def range(from: Int, _to: Int) =
-          from to _to by (if (_to > from) 1 else -1)
-        for {
-          i <- range(p.from.x, p.from.x + p.deltaX)
-          j <- range(p.from.y, p.from.y + p.deltaY)
-        } yield rows(i)(j)
-      }
-      case _ => {
-        val (sdX, sdY) = (math.signum(p.deltaX), math.signum(p.deltaY))
-        for {
-          i <- 0 to delta
-        } yield rows(p.from.x + sdX * i)(p.from.y + sdY * i)
-      }
-  }).reduceLeft(_*_)
+  def productValue(p: Product) =
+    (0 to delta).map(p.toPosition(_))
+                .map(p => rows(p.x)(p.y))
+                .reduceLeft(_*_)
 
   def allValidProducts =
     for {
