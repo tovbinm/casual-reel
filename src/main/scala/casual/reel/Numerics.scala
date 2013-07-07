@@ -23,4 +23,11 @@ trait Numerics {
     2 :: (1 until bound).filter(numbers).map(2 * _ + 1).toList
   }
 
+  def divisors(n: Int): Int = {
+	val s = math.sqrt(n).toInt
+	val d = 2 * (1 to s).filter(n % _ == 0).length
+	if (s * s == n) d - 1
+	else d
+  }
+
 }
